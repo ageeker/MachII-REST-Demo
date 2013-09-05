@@ -1,0 +1,110 @@
+@charset "utf-8";
+/* CSS Document */
+@import "normalize.min.css";
+@import "main.css";
+@import "redmond/jquery-ui-1.8.16.custom.css";
+/* tags */
+/*for dark themes */
+/*body{background-color:#000;	color:#fff;} a{color:#fff}*/
+body { font-family: Verdana, Arial, sans-serif;}
+h1,h2,h3,h4,h5,h6{margin:.2em 0; padding:0}
+h1{font-size: 2.2em} h2{font-size: 2.0em} h3{font-size: 1.8em} h4{font-size: 1.6em} h5{font-size: 1.4em} h6{font-size: 1.2em}
+p.first:first-letter{ float:left;font-family: Palatino,'Palatino Linotype',Georgia, sans-serif;font-size:3em;font-weight:700;line-height:1em;margin-bottom:-0.2em;padding:0.2em 0.1em 0 0}
+dt{font-weight:bold}
+figcaption{font-variant:small-caps; margin-top:1em;}
+img {box-shadow: 5px 5px 5px #888888;}
+header h1{font-size:1.2em;}
+footer{text-align:right;}
+footer a{color:#999; font-variant:small-caps;border-top:#999; font-size:small; }
+/* main container divs - centering, width, align see media queries below for various screen width handling */
+/* ************************************* */
+
+	#main {padding:.5em;}
+	#framework-debug{border:3px dashed #999; padding:1em; margin:1em; text-align:left}
+	#framework-debug span, #ufo-debug h1{font-size:small; font-variant:small-caps; }
+
+/* ************************************* */
+
+/* table centering, misc styles */
+/* ************************************* */
+	#main table {margin: 0 auto 1em auto; padding: 0;  border: 1px solid #000}
+	#main table tr th{ text-transform: uppercase; font-weight: bold; padding: 5px; margin: 0; font-size: .8em; text-align: center; border: 1px solid #000}
+	#main table tr td{ padding: 5px; margin: 0; font-size: .9em; border: 1px solid #000}
+	#main table.center-cols tr td { text-align: center}
+	#main table.no-center {margin:0 0 1em 0}
+	#main table caption { text-align:center; font-family:Georgia, serif; margin:.3em 0; padding: .3em 0; font-variant:small-caps;}
+/* ************************************* */
+
+/* forms */
+/* ************************************* */
+	#main label,span.label{display:block; text-align:left; }
+	#main label.no-format{display:inline; width:auto; text-align:left}
+	/*#main label,span.label{width:15%;}*/
+	textarea{width:80%}
+
+/* ************************************* */
+
+/* classes */
+/* ************************************* */
+	#breadcrumbs,.breadcrumb {color: #999;font-size: .8em; padding-left: .5em;	margin-top:.5em; font-variant:small-caps; text-transform:lowercase;}
+	#breadcrumbs a:link,.breadcrumb a:visited{text-decoration:none;color: #999;}
+	#breadcrumbs a:hover, .breadcrumb a:active{color:#578FC1;text-decoration:underline;}
+	
+	.ui-hinted {color:#ccc}
+	.ui-padded{padding:.5em;}
+	.ui-padded-wide{padding:.1em .3em; margin:.1em .3em}
+	.ui-padded-tall{padding:.3em .1em; margin:.3em .1em}
+	.ui-margined{margin:.5em}
+	.ui-datepicker-trigger{margin-left: .5em;}
+	.ui-icon-mime {display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat;width: 16px; height: 16px; margin-left:6px; vertical-align:text-bottom}
+	.ui-icon-mime-doc {background:url(../../images/icons/doc.gif)}
+	.ui-icon-mime-ppt {background:url(../../images/icons/ppt.gif)}
+	.ui-icon-mime-xls {background:url(../../images/icons/xls.gif)}
+	.ui-icon-mime-pdf {background:url(../../images/icons/pdf.gif)}
+	.ui-icon-mime-txt {background:url(../../images/icons/txt.gif)}
+	.ui-icon-mime-zip {background:url(../../images/icons/zip.gif)}
+	.ui-icon-mime-rss {background:url(../../images/icons/rss.gif)}
+	.ui-icon-mime-cal {background:url(../../images/icons/calendar.gif)}
+	.ui-icon-none{/*place holder class used by jquery to omit mime and link icons*/}
+
+	.list-style-none{list-style:none}
+/* ************************************* */
+
+
+html {-webkit-text-size-adjust: none;}
+nav {height: 31px; margin-bottom:.5em;}
+nav ul{float:left;}
+nav ul li a{float:left; font-size: 95%; padding:6px; font-variant:small-caps; }
+nav ul li{float:left; }
+
+#container,#jquery-debug-text{ margin: 5px;width: 300px}
+
+
+/* media queries */
+@media only screen and (min-width: 440px) {
+  /* Style adjustments for viewports 420px and over go here */
+	#container,#jquery-debug-text{ margin:.5em auto; width: 95%; text-align:left;}
+
+	#main label,span.label{display:inline-block; text-align:right; vertical-align:top; }
+	#main label, span.label{width:15%;}
+	#main label.no-format{display:inline; width:auto; text-align:left}
+	input[type=text]{width:30%}
+	table tr td input[type=text]{width:auto}
+	
+}
+
+@media only screen and (min-width: 768px) {
+  /* Style adjustments for viewports 768px and over go here */
+	#container,#jquery-debug-text{width: 740px}
+
+}
+@media only screen and (min-width: 980px) {
+  /* Style adjustments for viewports 768px and over go here */
+	#container,#jquery-debug-text{width: 960px}
+}
+@media print {
+	#framework-debug,#qa-bar{display:none}
+	a[href]:after { content: ""; }
+  abbr[title]:after { content: ""; }
+	table { page-break-inside: avoid; }
+}

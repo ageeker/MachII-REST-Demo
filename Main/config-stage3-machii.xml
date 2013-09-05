@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mach-ii SYSTEM "http://www.mach-ii.com/dtds/mach-ii_1_9_0.dtd">
+<mach-ii>
+
+    <event-filters></event-filters>
+
+    <event-handlers>
+
+        <event-handler event="findProducts" access="public">
+            <notify listener="ApplicationListener" method="getCartRaw" resultArg="myCart" />
+            
+            <view-page name="productSearch" contentArg="mainContent" />
+            
+            <announce event="layout" />
+        </event-handler>
+        
+        <event-handler event="layout" access="private">
+            <view-page name="extraHeaderContent" contentArg="extraHeaderContent" />
+            <view-page name="navigation" contentArg="navigation" />
+            <view-page name="pageTopNav" contentArg="pageTopNavContent" />
+            
+            <view-page name="layoutWrap" />
+        </event-handler>
+
+    </event-handlers>
+
+    <page-views>
+        <page-view name="productSearch" page="view/stage3/productSearch.cfm" />
+        <page-view name="extraHeaderContent" page="view/stage3/extraHeaderContent.cfm" />
+    </page-views>
+
+</mach-ii>

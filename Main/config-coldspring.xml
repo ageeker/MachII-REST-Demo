@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans default-autowire="byType">
+
+    <bean id="SessionService" class="Demo201302.service.SessionService" />
+
+    <bean id="SecurityService" class="Demo201302.service.SecurityService">
+        <constructor-arg name="dsnMain">
+            <value>${dsnMain}</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="ApplicationService" class="Demo201302.service.ApplicationService">
+        <constructor-arg name="dsnMain">
+            <value>${dsnMain}</value>
+        </constructor-arg>
+    </bean>
+
+</beans>

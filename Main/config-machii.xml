@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mach-ii SYSTEM "http://www.mach-ii.com/dtds/mach-ii_1_9_0.dtd">
+<mach-ii>
+
+	<modules>
+		<module name="stage2" file="/Demo201302/config-stage2-machii.xml" />
+		<module name="stage3" file="/Demo201302/config-stage3-machii.xml" />
+	</modules>
+
+	<properties>
+		<property name="applicationRoot" value="/Demo201302/" />
+		<property name="applicationVersion" value="0.1" />
+
+		<property name="eventParameter" value="event" />
+		<property name="parameterPrecedence" value="form" />
+		<property name="maxEvents" value="50" />
+
+		<!-- SPECIAL EVENTS REGISTRATION -->
+		<property name="defaultEvent" value="findProducts" />
+		<property name="exceptionEvent" value="showErrorHandler" />
+		<property name="dsnMain" value="dbCfugDemos" />
+
+		<property name="coldspringProperty" type="MachII.properties.ColdspringProperty">
+			<parameters>
+				<parameter name="resolveMachIIDependencies" value="true"/>
+				<parameter name="configFilePathIsRelative" value="true"/>
+				<parameter name="configFile" value="config-coldspring.xml" />
+			</parameters>
+		</property>
+	</properties>
+
+	<endpoints>
+		<!-- REST API REGISTRATION -->
+		<endpoint name="api" type="Demo201302.endpoint.ApplicationEndpoint" />
+	</endpoints>
+
+	<listeners>
+		<listener name="ApplicationListener" type="Demo201302.controller.ApplicationListener" />
+	</listeners>
+
+	<event-filters>
+		<event-filter name="ExceptionHandlerFilter" type="Demo201302.controller.ExceptionHandlerFilter" />
+	</event-filters>
+
+	<event-handlers>
+		<!-- ======================================== Public Events ======================================== -->
+		<event-handler event="findProducts" access="public">
+			<notify listener="ApplicationListener" method="getCartRaw" resultArg="myCart" />
+			<notify listener="ApplicationListener" method="findProducts" resultArg="searchResults" />
+
+			<view-page name="searchForm" contentArg="searchForm" />
+			<view-page name="productsList" contentArg="mainContent" />
+
+			<announce event="layout" />
+		</event-handler>
+
+		<event-handler event="myCart" access="public">
+			<notify listener="ApplicationListener" method="getCartRendered" resultArg="myCart" />
+
+			<view-page name="myCart" contentArg="mainContent" />
+
+			<notify listener="ApplicationListener" method="getCartRaw" resultArg="myCart" />
+			<announce event="layout" />
+		</event-handler>
+
+		<event-handler event="addToCart" access="public">
+			<notify listener="ApplicationListener" method="addToCart" />
+			<redirect event="findProducts" persistArgs="true" args="term,startAt" />
+		</event-handler>
+
+		<event-handler event="removeFromCart" access="public">
+			<notify listener="ApplicationListener" method="removeFromCart" />
+			<redirect event="findProducts" persistArgs="true" args="term,startAt" />
+		</event-handler>
+
+		<event-handler event="addAnotherToMyCart" access="public">
+			<notify listener="ApplicationListener" method="addToCart" />
+			<redirect event="myCart" persistArgs="true" args="startAt" />
+		</event-handler>
+
+		<event-handler event="removeOneFromMyCart" access="public">
+			<notify listener="ApplicationListener" method="removeFromCart" />
+			<redirect event="myCart" persistArgs="true" args="startAt" />
+		</event-handler>
+
+		<event-handler event="generateImages" access="public">
+			<notify listener="ApplicationListener" method="generateImages" />
+		</event-handler>
+
+		<!-- ======================================== PRIVATE EVENTS ======================================== -->
+		<event-handler event="layout" access="private">
+			<view-page name="navigation" contentArg="navigation" />
+			<view-page name="pageTopNav" contentArg="pageTopNavContent" />
+
+			<view-page name="layoutWrap" />
+		</event-handler>
+
+		<event-handler event="showErrorHandler" access="private">
+			<filter name="ExceptionHandlerFilter" />
+			<view-page name="errorHandler" />
+		</event-handler>
+		
+		<event-handler event="showErrorHandler_404" access="private">
+			<view-page name="errorHandler_404" contentArg="mainContent" />
+			<announce event="layout" />
+		</event-handler>
+	</event-handlers>
+
+	<page-views>
+		<!-- LAYOUT PAGES -->
+		<page-view name="layoutWrap" page="view/core/layout.cfm" />
+		<page-view name="navigation" page="view/core/navigation.cfm" />
+
+		<page-view name="searchForm" page="view/default/searchForm.cfm" />
+		<page-view name="productsList" page="view/default/productsList.cfm" />
+		<page-view name="myCart" page="view/default/myCart.cfm" />
+
+		<page-view name="pageTopNav" page="view/default/pageTopNav.cfm" />
+		
+		<!-- ERROR PAGES/HANDLERS -->
+		<page-view name="errorHandler" page="view/core/errorHandler.cfm" />
+		<page-view name="errorHandler_404" page="view/core/errorHandler_404.cfm" />
+	</page-views>
+
+	<plugins></plugins>
+</mach-ii>
